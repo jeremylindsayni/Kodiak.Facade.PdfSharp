@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+    <metadata>
+        <id>Kodiak.Facade.PdfSharp</id>
+        <version>1.0.0</version>
+        <title>Opinionated wrapper for PdfSharp</title>
+        <authors>Jeremy Lindsay (@jeremylindsayni)</authors>
+        <owners>Jeremy Lindsay (@jeremylindsayni)</owners>
+        <licenseUrl>https://github.com/jeremylindsayni/Kodiak.Facade.PdfSharp/blob/master/LICENSE</licenseUrl>
+        <projectUrl>https://github.com/jeremylindsayni/Kodiak.Facade.PdfSharp</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Opinionated wrapper for PdfSharp</description>
+        <summary>Opinionated wrapper for PdfSharp</summary>
+        <copyright>Copyright 2018: Jeremy Lindsay. All rights reserved.</copyright>
+        <language>en-US</language>
+        <dependencies>
+            <group targetFramework=".NETFramework4.0">
+                <dependency id="PdfSharp" version="1.32.3057.0" />
+            </group>
+        </dependencies>
+    </metadata>
+	<files>
+        <file src="src\bin\Debug\Kodiak.Facade.PdfSharp.dll" target="lib\net40\Kodiak.Facade.PdfSharp.dll" />
+    </files>
+</package>
