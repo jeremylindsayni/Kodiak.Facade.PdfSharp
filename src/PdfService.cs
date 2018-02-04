@@ -16,12 +16,31 @@ namespace Kodiak.Facade.PdfSharp
         }
 
         /// <summary>
-        /// Gets or sets the page template.
+        /// Sets the page template.
+        /// </summary>
+        /// <param name="pageTemplatePath">The page template path.</param>
+        /// <exception cref="System.Exception">Pdf templates may only be a single page.</exception>
+        public void SetPageTemplate(string pageTemplatePath)
+        {
+            this.PdfDocument = PdfReader.Open(pageTemplatePath, PdfDocumentOpenMode.Import);
+            var document = new PdfDocument();
+
+            if (this.PdfDocument.PageCount != 1)
+            {
+                throw new System.Exception("Pdf templates may only be a single page.");
+            }
+
+            this.PdfPage = document.AddPage(PdfDocument.Pages[0]);
+            this.PdfDocument = document;
+        }
+
+        /// <summary>
+        /// Gets or sets the PDF document.
         /// </summary>
         /// <value>
-        /// The page template.
+        /// The PDF document.
         /// </value>
-        public string PageTemplate { get; set; }
+        private PdfDocument PdfDocument { get; set; }
 
         /// <summary>
         /// Gets or sets the memory stream.
@@ -32,6 +51,14 @@ namespace Kodiak.Facade.PdfSharp
         private MemoryStream MemoryStream { get; set; }
 
         /// <summary>
+        /// Gets or sets the PDF page.
+        /// </summary>
+        /// <value>
+        /// The PDF page.
+        /// </value>
+        private PdfPage PdfPage { get; set; }
+
+        /// <summary>
         /// Draws the text in black arial font.
         /// </summary>
         /// <param name="textToDraw">The text to draw.</param>
@@ -40,15 +67,12 @@ namespace Kodiak.Facade.PdfSharp
         /// <param name="topLeftYCoordinate">The top left y coordinate.</param>
         public void DrawTextInBlackArialFont(string textToDraw, int fontSize, int topLeftXCoordinate, int topLeftYCoordinate)
         {
-            var inputDocument1 = PdfReader.Open(this.PageTemplate, PdfDocumentOpenMode.Import);
-            var document = new PdfDocument();
-            var page = document.AddPage(inputDocument1.Pages[0]);
-            var graphic = XGraphics.FromPdfPage(page);
+            var graphic = XGraphics.FromPdfPage(this.PdfPage);
             var xfont = new XFont(textToDraw, fontSize, XFontStyle.Regular);
 
             graphic.DrawString(textToDraw, xfont, XBrushes.Black, topLeftXCoordinate, topLeftYCoordinate);
 
-            document.Save(this.MemoryStream, false);
+            this.PdfDocument.Save(this.MemoryStream, false);
         }
 
         /// <summary>

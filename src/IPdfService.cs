@@ -5,12 +5,10 @@ namespace Kodiak.Facade.PdfSharp
     public interface IPdfService
     {
         /// <summary>
-        /// Gets or sets the page template.
+        /// Sets the page template.
         /// </summary>
-        /// <value>
-        /// The page template.
-        /// </value>
-        string PageTemplate { get; set; }
+        /// <param name="pageTemplatePath">The page template path.</param>
+        void SetPageTemplate(string pageTemplatePath);
 
         /// <summary>
         /// Draws the text in black arial font.
